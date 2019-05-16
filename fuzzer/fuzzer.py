@@ -11,6 +11,7 @@ import shellphish_afl
 import logging
 
 l = logging.getLogger("fuzzer.fuzzer")
+l.setLevel(logging.DEBUG)
 
 config = { }
 
@@ -481,6 +482,8 @@ class Fuzzer(object):
         template = os.path.join(self.in_dir, "seed-%d")
         for i, seed in enumerate(self.seeds):
             with open(template % i, "wb") as f:
+                if isinstance(seed,str):
+                    seed = seed.encode('utf-8')
                 f.write(seed)
 
     ### DICTIONARY CREATION

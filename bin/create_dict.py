@@ -32,7 +32,10 @@ strcnt = itertools.count()
 def create(binary):
 
     b = angr.Project(binary, load_options={'auto_load_libs': False})
-    cfg = b.analyses.CFG(resolve_indirect_jumps=True, collect_data_references=True)
+    try:
+        cfg = b.analyses.CFG(resolve_indirect_jumps=True, collect_data_references=True)
+    except angr.errors.SimSolverModeError as e:
+        cfg = b.analyses.CFG(resolve_indirect_jumps=False, collect_data_references=True)
 
     state = b.factory.blank_state()
 
