@@ -641,9 +641,9 @@ class Fuzzer(object):
             if p.arch.qemu_name == "arm":
                 # some stuff qira uses to determine the which libs to use for arm
                 with open(self.binary_path, "rb") as f: progdata = f.read(0x800)
-                if "/lib/ld-linux.so.3" in progdata:
+                if b"/lib/ld-linux.so.3" in progdata:
                     directory = "armel"
-                elif "/lib/ld-linux-armhf.so.3" in progdata:
+                elif b"/lib/ld-linux-armhf.so.3" in progdata:
                     directory = "armhf"
 
             if directory is None:
